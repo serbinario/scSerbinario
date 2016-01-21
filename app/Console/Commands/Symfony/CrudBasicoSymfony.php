@@ -24,7 +24,7 @@ class CrudBasicoSymfony extends Command
      *
      * @var string
      */
-    protected $signature = 'crudSym:create {projectName?}';
+    protected $signature = 'crudSym:create {projectName?} {--bundleName= : Nome do Bundle} {--tables= : Nome das tabels}';
 
     /**
      * The console command description.
@@ -114,11 +114,20 @@ class CrudBasicoSymfony extends Command
             exit();
         }
 
-        if($this->project->bundle == "")
+
+        if($this->project->bundle == "" && $this->option('bundleName') == "")
         {
             $this->info("O Nome do Blunde não foi setado no projeto");
             exit();
         }
+
+        #Se passar o nome do bundle por paramentro, a variavel bundlename será setado com o paramentor que foi passado ignorando o que está no banco
+        if($this->option('bundleName') == ""){
+            $this->bundleName = $this->project->bundle;
+        }else{
+            $this->bundleName = $this->option('bundleName');
+        }
+
 
         if($this->project->name_space_projeto == "")
         {
@@ -126,13 +135,14 @@ class CrudBasicoSymfony extends Command
             exit();
         }
 
+
         $this->pathBundleName =
             "../"
             . $this->project->path_projeto_projeto . "/"
             . "src" . "/"
             . $this->project->name_space_projeto . "/"
             . "Bundles" . "/"
-            . $this->project->bundle;
+            . $this->bundleName;
 
         //dd($this->pathBundleName);
 
@@ -149,6 +159,7 @@ class CrudBasicoSymfony extends Command
             $this->info("Não há tabelas para ser processado");
             exit();
         }
+
 
         //Varre todas as tabelas do banco de dados
         foreach ($tables as  $value)
@@ -201,7 +212,7 @@ class CrudBasicoSymfony extends Command
 
         Generic::setReplacements(['NAMESPACE' => $this->project->name_space_projeto]);
         Generic::setReplacements(['CLASS_NAME' =>  ucfirst( $table_name)]);
-        Generic::setReplacements(['BUNDLE_NAME' =>  $this->project->bundle]);
+        Generic::setReplacements(['BUNDLE_NAME' =>  $this->bundleName]);
         //dd(Generic::getReplacements());
         //dd(Generic::getContents(Generic::getReplacements()));
         //dd($this->pathBundleName . "/" . "DAO" . "/" . "Interface" . ucfirst( $table_name) . "DAO" . ".php");
@@ -220,7 +231,7 @@ class CrudBasicoSymfony extends Command
 
         Generic::setReplacements(['NAMESPACE' => $this->project->name_space_projeto]);
         Generic::setReplacements(['CLASS_NAME' =>  ucfirst( $table_name)]);
-        Generic::setReplacements(['BUNDLE_NAME' =>  $this->project->bundle]);
+        Generic::setReplacements(['BUNDLE_NAME' =>  $this->bundleName]);
         $pathFileInterfaceEntityDAO = $this->pathBundleName . "/" . "DAO" . "/" . ucfirst( $table_name) . "DAO" . ".php";
 
         $this->writeClass($pathFileInterfaceEntityDAO , Generic::getContents(Generic::getReplacements()));
@@ -234,7 +245,7 @@ class CrudBasicoSymfony extends Command
 
         Generic::setReplacements(['NAMESPACE' => $this->project->name_space_projeto]);
         Generic::setReplacements(['CLASS_NAME' =>  ucfirst( $table_name)]);
-        Generic::setReplacements(['BUNDLE_NAME' =>  $this->project->bundle]);
+        Generic::setReplacements(['BUNDLE_NAME' =>  $this->bundleName]);
         $pathFileInterfaceEntityDAO = $this->pathBundleName . "/" . "RN" . "/" . ucfirst( $table_name) . "RN" . ".php";
 
         $this->writeClass($pathFileInterfaceEntityDAO , Generic::getContents(Generic::getReplacements()));
@@ -248,7 +259,7 @@ class CrudBasicoSymfony extends Command
 
         Generic::setReplacements(['NAMESPACE' => $this->project->name_space_projeto]);
         Generic::setReplacements(['CLASS_NAME' =>  ucfirst( $table_name)]);
-        Generic::setReplacements(['BUNDLE_NAME' =>  $this->project->bundle]);
+        Generic::setReplacements(['BUNDLE_NAME' =>  $this->bundleName]);
         $pathFileInterfaceEntityDAO = $this->pathBundleName . "/" . "Form" . "/" . ucfirst( $table_name) . "Type" . ".php";
 
         $this->writeClass($pathFileInterfaceEntityDAO , Generic::getContents(Generic::getReplacements()));
@@ -264,7 +275,7 @@ class CrudBasicoSymfony extends Command
         Generic::setReplacements(['NAMESPACE' => $this->project->name_space_projeto]);
         Generic::setReplacements(['CLASS_NAME' =>  ucfirst( $table_name)]);
         Generic::setReplacements(['CLASS_NAME1' =>  $table_name]);
-        Generic::setReplacements(['BUNDLE_NAME' =>  $this->project->bundle]);
+        Generic::setReplacements(['BUNDLE_NAME' =>  $this->bundleName]);
         $pathFileInterfaceEntityDAO = $this->pathBundleName . "/" . "Controller" . "/" . ucfirst( $table_name) . "Controller" . ".php";
 
         $this->writeClass($pathFileInterfaceEntityDAO , Generic::getContents(Generic::getReplacements()));
