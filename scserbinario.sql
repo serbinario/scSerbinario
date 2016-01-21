@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.44, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.5.46, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: sc_serbinario
 -- ------------------------------------------------------
--- Server version	5.5.44-0ubuntu0.14.04.1
+-- Server version	5.5.46-0ubuntu0.14.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -56,10 +56,14 @@ CREATE TABLE `campos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `tipo_id` int(10) unsigned NOT NULL,
+  `operacoes_id` int(10) unsigned NOT NULL,
+  `validacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `campos_tipo_id_foreign` (`tipo_id`),
+  KEY `campos_operacoes_id_foreign` (`operacoes_id`),
+  CONSTRAINT `campos_operacoes_id_foreign` FOREIGN KEY (`operacoes_id`) REFERENCES `operacoes` (`id`),
   CONSTRAINT `campos_tipo_id_foreign` FOREIGN KEY (`tipo_id`) REFERENCES `tipos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -115,7 +119,7 @@ CREATE TABLE `operacoes` (
   KEY `operacoes_tipo_crud_id_foreign` (`tipo_crud_id`),
   CONSTRAINT `operacoes_aplicacoes_id_foreign` FOREIGN KEY (`aplicacao_id`) REFERENCES `aplicacoes` (`id`),
   CONSTRAINT `operacoes_tipo_crud_id_foreign` FOREIGN KEY (`tipo_crud_id`) REFERENCES `tipo_crud` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,10 +170,11 @@ CREATE TABLE `projetos` (
   `name_space_projeto` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `nome_db_projeto` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `path_projeto_projeto` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `bundle` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +183,7 @@ CREATE TABLE `projetos` (
 
 LOCK TABLES `projetos` WRITE;
 /*!40000 ALTER TABLE `projetos` DISABLE KEYS */;
-INSERT INTO `projetos` VALUES (1,'Protocolo','Sistema de gerenciamento de protocolo eletronico','SCSerbinario','protocolo','','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,'Agendamento','Sistema de agendamento eletronico para a saúde','SCSerbinario','agendamento','','0000-00-00 00:00:00','0000-00-00 00:00:00'),(3,'Serbinario Gestor','Sistema que gerenciará:\r\n- Cadastro de usuário\r\n- Contas a Pagar e Receber\r\n- Agenda\r\n- Cadastro de Propostas','Serbinario','sergestor','SerGestor','2015-10-17 21:12:51','2015-10-17 21:12:51');
+INSERT INTO `projetos` VALUES (1,'Protocolo','Sistema de gerenciamento de protocolo eletronico','SCSerbinario','','','','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,'Agendamento','Sistema de agendamento eletronico para a saúde','SCSerbinario','agendamento','','','0000-00-00 00:00:00','0000-00-00 00:00:00'),(3,'Serbinario Gestor','Sistema que gerenciará:\r\n- Cadastro de usuário\r\n- Contas a Pagar e Receber\r\n- Agenda\r\n- Cadastro de Propostas','Serbinario','sergestor','SerGestor','','2015-10-17 21:12:51','2015-10-17 21:12:51'),(4,'Pessoas','Gerenciamento de pessoas','Serbinario','crud_rest_api','CrudRestApi','CrudRestApiBundle','0000-00-00 00:00:00','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `projetos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,4 +276,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-10-28 13:14:01
+-- Dump completed on 2016-01-21  7:55:36
