@@ -1,0 +1,34 @@
+<?php
+
+namespace $NAMESPACE$\Bundles\$BUNDLE_NAME$\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class $CLASS_NAME$Type extends AbstractType
+{
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+
+        //$builder
+        //    ->add('nomePessoa')
+        //;
+
+    }
+
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => '$NAMESPACE$\Bundles\$BUNDLE_NAME$\Entity\$CLASS_NAME$',
+            'csrf_protection' => false,
+        ));
+    }
+}

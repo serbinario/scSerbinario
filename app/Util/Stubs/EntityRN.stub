@@ -1,0 +1,28 @@
+<?php
+
+namespace $NAMESPACE$\Bundles\$BUNDLE_NAME$\RN;
+
+use $NAMESPACE$\Bundles\$BUNDLE_NAME$\DAO\Interface$CLASS_NAME$DAO;
+
+/**
+ * Description of $CLASS_NAME$RN
+ *
+ * @author serbinario
+ */
+class $CLASS_NAME$RN
+{
+    use \$NAMESPACE$\Bundles\$BUNDLE_NAME$\RN\TraitRN;
+
+    /**
+     * @var Interface$CLASS_NAME$DAO
+     */
+    private $dao;
+
+    /**
+     * @param Interface$CLASS_NAME$DAO $dao
+     */
+    public function __construct(Interface$CLASS_NAME$DAO $dao)
+    {
+        $this->dao = $dao;
+    }
+}

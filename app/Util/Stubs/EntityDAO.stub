@@ -1,0 +1,15 @@
+<?php
+
+namespace $NAMESPACE$\Bundles\$BUNDLE_NAME$\DAO;
+
+use $NAMESPACE$\Bundles\$BUNDLE_NAME$\DAO\Interface$CLASS_NAME$DAO;
+
+/**
+ * Description of PessoasDAO
+ *
+ * @author serbinario
+ */
+class $CLASS_NAME$DAO implements Interface$CLASS_NAME$DAO
+{
+    use \$NAMESPACE$\Bundles\$BUNDLE_NAME$\DAO\TraitDAO;
+}

@@ -1,0 +1,13 @@
+<?php
+
+namespace $NAMESPACE$\Bundles\$BUNDLE_NAME$\DAO;
+
+use $NAMESPACE$\Bundles\$BUNDLE_NAME$\DAO\InterfaceDAO;
+
+/**
+ *
+ * @author serbinario
+ */
+interface Interface$CLASS_NAME$DAO extends InterfaceDAO
+{
+}

@@ -1,0 +1,189 @@
+<?php
+
+namespace $NAMESPACE$\Bundles\$BUNDLE_NAME$\Controller;
+
+use FOS\RestBundle\Controller\FOSRestController;
+use $NAMESPACE$\Bundles\$BUNDLE_NAME$\Form\$CLASS_NAME$Type;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use $NAMESPACE$\Bundles\$BUNDLE_NAME$\Entity\$CLASS_NAME$;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Respect\Validation\Validator as v;
+
+class $CLASS_NAME$Controller extends FOSRestController
+{
+    /**
+     * Retorna uma collection de $CLASS_NAME1$ ou null
+     * se não existir nenhuma
+     *
+     * @return Response
+     */
+    public function get$CLASS_NAME$Action()
+    {
+        #Recuperando os serviços
+        $$CLASS_NAME1$RN  = $this->get("$CLASS_NAME1$_rn");
+        $serializer = $this->get("jms_serializer");
+
+        #Tratamento de exceções
+        try {
+            #Recuperando todas as $CLASS_NAME1$ cadastradas
+            $$CLASS_NAME1$ = $$CLASS_NAME1$RN->all($CLASS_NAME$::class);
+
+            #Retorno
+            return new Response($serializer->serialize($$CLASS_NAME1$, "json"));
+        } catch (NoResultException $e) {
+            throw new HttpException(400, $e->getMessage());
+        } catch (\Exception $e) {
+            throw new HttpException(400, $e->getMessage());
+        } catch (\Error $e) {
+            throw new HttpException(400, $e->getMessage());
+        }
+    }
+
+    /**
+     * Retorna um Objeto $CLASS_NAME$ ou null
+     * se não existir nenhuma
+     *
+     * @param $id
+     * @return Response
+     */
+    public function get$CLASS_NAME$Action($id)
+    {
+        #Validando o id do parâmetro
+        if(!v::numeric()->validate($id)) {
+            throw new HttpException(400, "Parâmetro inválido");
+        }
+
+        #Recuperando os serviços
+        $$CLASS_NAME1$RN  = $this->get("$CLASS_NAME1$_rn");
+        $serializer = $this->get("jms_serializer");
+
+        #Tratamento de exceções
+        try {
+            #Recuperando a $CLASS_NAME1$ solicitada
+            $$CLASS_NAME1$     = $$CLASS_NAME1$RN->find($CLASS_NAME$::class, $id);
+
+            #Retorno
+            return new Response($serializer->serialize($$CLASS_NAME1$, "json"));
+        } catch (NoResultException $e) {
+            throw new HttpException(400, $e->getMessage());
+        } catch (\Exception $e) {
+            throw new HttpException(400, $e->getMessage());
+        } catch (\Error $e) {
+            throw new HttpException(400, $e->getMessage());
+        }
+    }
+
+    /**
+     * Método para atualizar o objeto
+     * $CLASS_NAME1$ informado
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function put$CLASS_NAME$Action(Request $request, $id)
+    {
+        #Validando o id do parâmetro
+        if(!v::numeric()->validate($id)) {
+            throw new HttpException(400, "Parâmetro inválido");
+        }
+
+        #Recuperando os serviços
+        $$CLASS_NAME1$RN  = $this->get("$CLASS_NAME1$_rn");
+        $serializer = $this->get("jms_serializer");
+
+        #Recuperando o objeto $CLASS_NAME1$
+        $objPessoa  = $$CLASS_NAME1$RN->find($CLASS_NAME$::class, $id);
+
+        #Verificando se o objeto $CLASS_NAME1$ existe
+        if(!isset($objPessoa)) {
+           throw new HttpException(400, "Solicitação inválida");
+        }
+
+        #Verificando o método http
+        if ($request->getMethod() === "PUT") {
+
+            #Criando o formulário
+            $form = $this->createForm(new $CLASS_NAME$Type(), $objPessoa);
+
+            #Repasando a requisição
+            $form->submit($request);
+
+            #Verifica se os dados são válidos
+            if ($form->isValid()) {
+                #Recuperando o objeto $CLASS_NAME1$
+                $$CLASS_NAME1$     = $form->getData();
+
+                #Tratamento de exceções
+                try {
+                    #Atualizando o objeto
+                    $result = $$CLASS_NAME1$RN->update($$CLASS_NAME1$);
+
+                    #Retorno
+                    return new Response($serializer->serialize($result, "json"));
+                } catch (\Exception $e) {
+                    #Verificando se existe violação de unicidade. (campos definidos como únicos).
+                    if($e->getPrevious()->getCode() == 23000) {
+                        throw new HttpException(400, "Já existe registros com os dados informados");
+                    }
+
+                } catch (\Error $e) {
+                    throw new HttpException(400, $e->getMessage());
+                }
+            }
+        }
+
+        #Retorno
+        throw new HttpException(400, "Solicitação inválida");
+    }
+
+    /**
+     * Método para adicionar um novo
+     * objeto $CLASS_NAME1$
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function post$CLASS_NAME$Action(Request $request)
+    {
+        #Recuperando os serviços
+        $$CLASS_NAME1$RN  = $this->get("$CLASS_NAME1$_rn");
+        $serializer = $this->get("jms_serializer");
+
+        #Verificando o método http
+        if ($request->getMethod() === "POST") {
+
+            #Criando o formulário
+            $form = $this->createForm(new $CLASS_NAME$Type());
+
+            #Repasando a requisição
+            $form->submit($request);
+
+            #Verifica se os dados são válidos
+            if ($form->isValid()) {
+                #Recuperando o objeto $CLASS_NAME1$
+                $$CLASS_NAME1$   = $form->getData();
+
+                #Tratamento de exceções
+                try {
+                    #Atualizando o objeto
+                    $result = $$CLASS_NAME1$RN->save($$CLASS_NAME1$);
+
+                    #Retorno
+                    return new Response($serializer->serialize($result, "json"));
+                } catch (\Exception $e) {
+                    #Verificando se existe violação de unicidade. (campos definidos como únicos).
+                    if($e->getPrevious()->getCode() == 23000) {
+                        throw new HttpException(400, "Já existe registros com os dados informados");
+                    }
+
+                } catch (\Error $e) {
+                    throw new HttpException(400, $e->getMessage());
+                }
+            }
+        }
+
+        #Retorno
+        throw new HttpException(400, "Solicitação inválida");
+    }
+}
