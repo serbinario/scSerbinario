@@ -185,15 +185,7 @@ class CrudBasicoSymfony extends Command
     //Se não existir a entidade para o processo
     public function  isExistEntity($table_name)
     {
-        #Divide a string em um array se caso tiver um underlina como delimitador
-        $table_explode = explode("_", $table_name);
 
-        #Verifica se a string foi delimitada
-        if(count($table_explode) > 1) {
-            $table_name = ucfirst($table_explode[0]) . ucfirst($table_explode[1]);
-        }
-
-        //dd($this->pathBundleName   . "/" . "Entity" . "/" . ucfirst( $table_name) . ".php");
         if(!$this->files->exists($this->pathBundleName   . "/" . "Entity" . "/" . ucfirst( $table_name) . ".php"))
         {
             $this->info("Não existe a entidade " . $table_name );
@@ -214,16 +206,9 @@ class CrudBasicoSymfony extends Command
         //dd(Generic::getContents(Generic::getReplacements()));
         //dd($this->pathBundleName . "/" . "DAO" . "/" . "Interface" . ucfirst( $table_name) . "DAO" . ".php");
 
-        #Divide a string em um array se caso tiver um underlina como delimitador
-        $table_explode = explode("_", $table_name);
-
-        #Verifica se a string foi delimitada
-        if(count($table_explode) > 1) {
-            $table_name = ucfirst($table_explode[0]) . ucfirst($table_explode[1]);
-        }
-
         $pathFileInterfaceEntityDAO = $this->pathBundleName . "/" . "DAO" . "/" . "Interface" . ucfirst( $table_name) . "DAO" . ".php";
         //$pathFileInterfaceEntityDAO = $this->pathBundleName . "/" . "DAO" . "/" . "Interface" . "Teste" . "DAO" . ".php";
+
 
         $this->writeClass($pathFileInterfaceEntityDAO , Generic::getContents(Generic::getReplacements()));
     }
@@ -232,14 +217,6 @@ class CrudBasicoSymfony extends Command
     {
         //Seto o caminho e o nome do arquivo modelo
         Generic::setFilePath($this->pathFileEntityDAO);
-
-        #Divide a string em um array se caso tiver um underlina como delimitador
-        $table_explode = explode("_", $table_name);
-
-        #Verifica se a string foi delimitada
-        if(count($table_explode) > 1) {
-            $table_name = ucfirst($table_explode[0]) . ucfirst($table_explode[1]);
-        }
 
         Generic::setReplacements(['NAMESPACE' => $this->project->name_space_projeto]);
         Generic::setReplacements(['CLASS_NAME' =>  ucfirst( $table_name)]);
@@ -255,14 +232,6 @@ class CrudBasicoSymfony extends Command
         //Seto o caminho e o nome do arquivo modelo
         Generic::setFilePath($this->pathFileEntityRN);
 
-        #Divide a string em um array se caso tiver um underlina como delimitador
-        $table_explode = explode("_", $table_name);
-
-        #Verifica se a string foi delimitada
-        if(count($table_explode) > 1) {
-            $table_name = ucfirst($table_explode[0]) . ucfirst($table_explode[1]);
-        }
-
         Generic::setReplacements(['NAMESPACE' => $this->project->name_space_projeto]);
         Generic::setReplacements(['CLASS_NAME' =>  ucfirst( $table_name)]);
         Generic::setReplacements(['BUNDLE_NAME' =>  $this->project->bundle]);
@@ -276,14 +245,6 @@ class CrudBasicoSymfony extends Command
     {
         //Seto o caminho e o nome do arquivo modelo
         Generic::setFilePath($this->pathFileEntityType);
-
-        #Divide a string em um array se caso tiver um underlina como delimitador
-        $table_explode = explode("_", $table_name);
-
-        #Verifica se a string foi delimitada
-        if(count($table_explode) > 1) {
-            $table_name = ucfirst($table_explode[0]) . ucfirst($table_explode[1]);
-        }
 
         Generic::setReplacements(['NAMESPACE' => $this->project->name_space_projeto]);
         Generic::setReplacements(['CLASS_NAME' =>  ucfirst( $table_name)]);
@@ -299,14 +260,6 @@ class CrudBasicoSymfony extends Command
     {
         //Seto o caminho e o nome do arquivo modelo
         Generic::setFilePath($this->pathFileEntityController);
-
-        #Divide a string em um array se caso tiver um underlina como delimitador
-        $table_explode = explode("_", $table_name);
-
-        #Verifica se a string foi delimitada
-        if(count($table_explode) > 1) {
-            $table_name = ucfirst($table_explode[0]) . ucfirst($table_explode[1]);
-        }
 
         Generic::setReplacements(['NAMESPACE' => $this->project->name_space_projeto]);
         Generic::setReplacements(['CLASS_NAME' =>  ucfirst( $table_name)]);

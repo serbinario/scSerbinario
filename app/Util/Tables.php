@@ -64,7 +64,15 @@ Class Tables
      */
     public static function getTables()
     {
-        return DB::select('SELECT table_name FROM information_schema.tables WHERE table_schema="' . self::$database . '"');
+        $tablesArray = array();
+        //return DB::select('SELECT table_name FROM information_schema.tables WHERE table_schema="' . self::$database . '"');
+        $tables = DB::select('SELECT table_name FROM information_schema.tables WHERE table_schema="' . self::$database . '"');
+        foreach ($tables as  $value)
+        {
+            array_push($tablesArray, $value->table_name);
+        }
+        return $tablesArray;
+
     }
 
     public static function getTableDescribes($table)
