@@ -142,7 +142,6 @@ class CrudBasicoSymfony extends Command
         //Seto o caminho do projeto
         Tables::setDirProject($this->project->path_projeto_projeto);
 
-
         //Retorna todas as tabelas
         if(! $tables = Tables::getTables())
         {
@@ -152,30 +151,30 @@ class CrudBasicoSymfony extends Command
 
         //Varre todas as tabelas do banco de dados
         foreach ($tables as  $value)
-        {
-            if ($this->confirm("Voce gostaria de criar o CRUD  $value->table_name ? [y|N]")) {
+            //dd($tables);
+            if ($this->confirm("Voce gostaria de criar o CRUD  $value ? [y|N]")) {{
                     //O Nome da entidade será o mesmo nome da tabela, se singular ou  plural
                  //dd( $this->pathBundleName   . "/" . "Entity" . "/" . ucfirst( $value->table_name) . ".php" );
                 //$this->files->exists(Tables::getDirProject() . "");
 
                 //Verifica se a entidade foi criada
-                $this->isExistEntity($value->table_name);
+                $this->isExistEntity($value);
 
-                $this->info("----- 1 - Criando no direório DAO o arquivo Interface" . ucfirst($value->table_name) . "DAO.php" . " da entitade  $value->table_name -----");
-                $this->createInterfaceEntityDAO($value->table_name);
+                $this->info("----- 1 - Criando no direório DAO o arquivo Interface" . ucfirst($value) . "DAO.php" . " da entitade  $value -----");
+                $this->createInterfaceEntityDAO($value);
 
-                $this->info("----- 2 - Criando no diretório DAO o arquivo " . ucfirst($value->table_name) . "DAO.php" . " da entitade  $value->table_name -----");
-                $this->createEntityDAO($value->table_name);
+                $this->info("----- 2 - Criando no diretório DAO o arquivo " . ucfirst($value) . "DAO.php" . " da entitade  $value -----");
+                $this->createEntityDAO($value);
 
-                $this->info("----- 3 - Criando no diretório RN o arquivo " . ucfirst($value->table_name) . "RN.php" . " da entitade  $value->table_name -----");
-                $this->createEntityRN($value->table_name);
+                $this->info("----- 3 - Criando no diretório RN o arquivo " . ucfirst($value) . "RN.php" . " da entitade  $value -----");
+                $this->createEntityRN($value);
 
 
-                $this->info("----- 4 - Criando no diretório FORM o arquivo " . ucfirst($value->table_name) . "TYPE.php" . " da entitade  $value->table_name -----");
-                $this->createEntityType($value->table_name);
+                $this->info("----- 4 - Criando no diretório FORM o arquivo " . ucfirst($value) . "TYPE.php" . " da entitade  $value  -----");
+                $this->createEntityType($value);
 
-                $this->info("----- 5 - Criando no diretório Controller o arquivo " . ucfirst($value->table_name) . "Controller.php" . " da entitade  $value->table_name -----");
-                $this->createEntityController($value->table_name);
+                $this->info("----- 5 - Criando no diretório Controller o arquivo " . ucfirst($value) . "Controller.php" . " da entitade  $value -----");
+                $this->createEntityController($value);
             }
         }
 
